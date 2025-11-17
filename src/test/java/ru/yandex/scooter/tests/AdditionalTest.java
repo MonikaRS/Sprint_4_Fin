@@ -4,25 +4,24 @@ import org.junit.Test;
 import ru.yandex.scooter.BaseTest;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class AdditionalTest extends BaseTest {
 
     @Test
     public void testHomePageLoads() {
-        // Простой тест - проверяем что главная страница загружается
+        // Открываем главную страницу
         driver.get("https://qa-scooter.praktikum-services.ru/");
 
         String currentUrl = driver.getCurrentUrl();
+        String pageTitle = driver.getTitle();
 
-        System.out.println("Current URL: " + currentUrl);
-        System.out.println("Page Title: " + driver.getTitle());
-
-        // Проверяем только URL - это надежнее
-        assertTrue("Должны быть на главной странице самоката",
+        // Проверяем что мы на правильной странице
+        assertTrue("URL должен содержать 'qa-scooter'",
                 currentUrl.contains("qa-scooter"));
 
-        // Дополнительная проверка что страница загрузилась
-        assertTrue("Страница должна иметь заголовок",
-                !driver.getTitle().isEmpty());
+        // Проверяем что заголовок страницы не пустой
+        assertFalse("Заголовок страницы не должен быть пустым",
+                pageTitle.isEmpty());
     }
 }
